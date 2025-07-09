@@ -924,9 +924,7 @@
                 </div>
             </div>
 
-            <div class="debug-info" id="debug-info">
-                Debug info will appear here...
-            </div>
+        
         </div>
         
         <!-- Aerospace Companies Tab -->
@@ -1063,23 +1061,11 @@
 
         const states = document.querySelectorAll('.state-shape');
             const infoPanel = document.getElementById('info-panel');
-            const debugInfo = document.getElementById('debug-info');
             let selectedState = null;
             
             console.log('Found', states.length, 'states');
             
-            // Add debug info
-            const stateIds = Array.from(states).map(state => state.id);
-            const uniqueStateIds = [...new Set(stateIds)];
-            const duplicates = stateIds.filter((item, index) => stateIds.indexOf(item) !== index);
-            
-            debugInfo.innerHTML = `
-                <strong>Debug Information:</strong><br>
-                Total state elements found: ${states.length}<br>
-                Unique state IDs: ${uniqueStateIds.length}<br>
-                Duplicate IDs: ${[...new Set(duplicates)].join(', ') || 'None'}<br>
-                <button onclick="document.getElementById('debug-info').style.display='none'">Hide Debug</button>
-            `;
+
 
             function showDefaultInfo() {
                 infoPanel.innerHTML = `
