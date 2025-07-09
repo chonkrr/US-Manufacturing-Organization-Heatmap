@@ -1019,7 +1019,23 @@
 
         // Manufacturing Consortium functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const states = document.querySelectorAll('.state-shape');
+        // Manufacturer count data by state (from aerospace tab)
+        const manufacturerCounts = {
+            'California': 2303, 'Massachusetts': 611, 'Texas': 600, 'Florida': 463,
+            'New York': 444, 'Connecticut': 435, 'Ohio': 423, 'Pennsylvania': 364,
+            'Washington': 352, 'Michigan': 341, 'Arizona': 331, 'Illinois': 284,
+            'Kansas': 253, 'Alabama': 216, 'Maine': 196, 'Indiana': 194,
+            'New Jersey': 187, 'Colorado': 182, 'Minnesota': 164, 'Georgia': 150,
+            'North Carolina': 147, 'New Hampshire': 134, 'Virginia': 133, 'Tennessee': 123,
+            'Missouri': 119, 'Wisconsin': 112, 'Rhode Island': 103, 'Utah': 102,
+            'Oklahoma': 98, 'Oregon': 88, 'South Carolina': 82, 'Iowa': 68,
+            'Arkansas': 66, 'Nevada': 55, 'Kentucky': 54, 'Louisiana': 48,
+            'Mississippi': 45, 'Nebraska': 37, 'Vermont': 34, 'New Mexico': 32,
+            'Idaho': 25, 'Montana': 22, 'North Dakota': 15, 'South Dakota': 13,
+            'Wyoming': 10, 'Alaska': 8, 'Hawaii': 7, 'Delaware': 5, 'West Virginia': 4
+        };
+
+    const states = document.querySelectorAll('.state-shape');
             const infoPanel = document.getElementById('info-panel');
             const debugInfo = document.getElementById('debug-info');
             let selectedState = null;
@@ -1042,9 +1058,19 @@
             function showDefaultInfo() {
                 infoPanel.innerHTML = `
                     <h3>Interactive Manufacturing Consortium Heatmap</h3>
-                    <p>Click on any state to view detailed information about manufacturing consortiums, MEPs, and aerospace/defense organizations. State colors indicate the concentration of organizations - darker colors represent more organizations.</p>
+                    <p>Click on any state to view detailed information about manufacturing consortiums, MEPs, and aerospace/defense organizations. State colors indicate the concentration of MEP centers and consortiums.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                        <div style="background: rgba(0,123,255,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold; color: #007bff;">65+</div>
+                            <div style="font-size: 0.9em; color: #666;">Total MEP Centers & Consortiums</div>
+                        </div>
+                        <div style="background: rgba(231,76,60,0.1); padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.5em; font-weight: bold; color: #e74c3c;">10,201</div>
+                            <div style="font-size: 0.9em; color: #666;">Total AS9100 Certified Manufacturers</div>
+                        </div>
+                    </div>
                     <div style="margin-top: 15px; padding: 15px; background: rgba(0,123,255,0.1); border-radius: 8px;">
-                        <strong>Legend:</strong> Colors show organization density - from light pink (1 org) to dark red (8+ orgs). Texas leads with 8 organizations, followed by California and Ohio with 6 each.
+                        <strong>Legend:</strong> Map colors show MEP/consortium density - from light pink (1 org) to dark red (8+ orgs). Hover or click any state to see both MEP centers and total manufacturers.
                     </div>
                 `;
             }
@@ -1053,6 +1079,7 @@
                 const stateName = state.getAttribute('data-state');
                 const orgCount = state.getAttribute('data-count');
                 const orgsAttr = state.getAttribute('data-orgs');
+                const manufacturerCount = manufacturerCounts[stateName] || 'N/A';
                 
                 console.log('State data:', { stateName, orgCount, orgsAttr });
                 
@@ -1103,7 +1130,18 @@
                 }).join('');
 
                 infoPanel.innerHTML = `
-                    <h3>${stateName} - ${orgCount} Organization${orgCount > 1 ? 's' : ''}</h3>
+                    <h3>${stateName}</h3>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <div style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.8em; font-weight: bold;">${orgCount}</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">MEP Centers & Consortiums</div>
+                        </div>
+                        <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                            <div style="font-size: 1.8em; font-weight: bold;">${manufacturerCount === 'N/A' ? 'N/A' : manufacturerCount.toLocaleString()}</div>
+                            <div style="font-size: 0.9em; opacity: 0.9;">AS9100 Certified Manufacturers</div>
+                        </div>
+                    </div>
+                    <h4 style="color: #007bff; margin-bottom: 15px;">🏭 Manufacturing Support Organizations:</h4>
                     <div class="org-list">
                         ${orgList}
                     </div>
@@ -1111,7 +1149,7 @@
                         <strong>Selected:</strong> ${stateName} is currently selected. Click it again to deselect, or click another state to switch.
                     </div>
                 `;
-            }
+                }
 
             function selectState(state) {
                 states.forEach(s => s.classList.remove('selected'));
@@ -1148,13 +1186,21 @@
                     if (!selectedState) {
                         const stateName = this.getAttribute('data-state');
                         const orgCount = this.getAttribute('data-count');
+                        const manufacturerCount = manufacturerCounts[stateName] || 'N/A';
                         
                         infoPanel.innerHTML = `
                             <h3>Hover: ${stateName}</h3>
-                            <p>${orgCount} Organization${orgCount > 1 ? 's' : ''} - Click to select and view details</p>
-                            <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                                State color indicates organization density
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+                                <div style="background: rgba(0,123,255,0.1); padding: 10px; border-radius: 5px; text-align: center;">
+                                    <div style="font-size: 1.3em; font-weight: bold; color: #007bff;">${orgCount}</div>
+                                    <div style="font-size: 0.8em; color: #666;">MEP Centers & Consortiums</div>
+                                </div>
+                                <div style="background: rgba(231,76,60,0.1); padding: 10px; border-radius: 5px; text-align: center;">
+                                    <div style="font-size: 1.3em; font-weight: bold; color: #e74c3c;">${manufacturerCount === 'N/A' ? 'N/A' : manufacturerCount.toLocaleString()}</div>
+                                    <div style="font-size: 0.8em; color: #666;">AS9100 Manufacturers</div>
+                                </div>
                             </div>
+                            <p style="margin: 10px 0; color: #666; font-size: 0.9em;">Click to select and view detailed organization information</p>
                         `;
                     }
                 });
