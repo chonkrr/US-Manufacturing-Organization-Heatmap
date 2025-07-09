@@ -391,13 +391,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🏭 US Manufacturing & Aerospace Dashboard</h1>
-            <p>Comprehensive view of manufacturing consortiums, MEPs, and aerospace/defense industry distribution</p>
+            <h1>🏭 US AS9100 Manufacturing & Aerospace Dashboard</h1>
+            <p>All data was compiled from the OASIS database by IAQG</p>
         </div>
         
         <div class="tab-container">
             <div class="tabs">
-                <button class="tab active" onclick="switchTab('manufacturing')">Manufacturing Consortiums</button>
+                <button class="tab active" onclick="switchTab('manufacturing')">Manufacturing Heatmap</button>
                 <button class="tab" onclick="switchTab('aerospace')">Aerospace Companies</button>
             </div>
         </div>
@@ -414,12 +414,12 @@
                     <div class="stat-label">States Covered</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">51</div>
-                    <div class="stat-label">MEP Centers</div>
+                    <div class="stat-number">10,201</div>
+                    <div class="stat-label">Total Companies</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">$500B+</div>
-                    <div class="stat-label">Combined Market</div>
+                    <div class="stat-number">14.8%</div>
+                    <div class="stat-label">New England Share</div>
                 </div>
             </div>
             
@@ -514,8 +514,9 @@
 
                 <!-- Connecticut - 5 organizations -->
                 <path class="state-shape state-fill-5" id="CT" 
-                      data-state="Connecticut" data-count="5" 
+                      data-state="Connecticut" data-count="6" 
                       data-orgs='[
+                        {"name": "Connecticut Center for Advanced Technology (CCAT)", "website": "https://www.ccat.us", "contact": "info@ccat.us | (860) 291-8832", "description": "Advanced Manufacturing Technology Center"},
                         {"name": "Aerospace Components Manufacturers (ACM)", "website": "https://www.acm-corp.com", "contact": "info@acm-corp.com | (860) 646-6280", "description": "Aerospace Manufacturing Network"},
                         {"name": "Connecticut Manufacturing Extension Partnership (CONNSTEP)", "website": "https://www.connstep.org", "contact": "info@connstep.org | (860) 513-4300", "description": "Statewide MEP Center"},
                         {"name": "Naval and Maritime Consortium (N and MC)", "website": "https://www.navalmaritimeconsortium.org", "contact": "info@navalmaritimeconsortium.org | (860) 405-9049", "description": "Naval Technology Innovation"},
@@ -959,10 +960,13 @@
                         <p>Aerospace/defense company distribution by state</p>
                         <div style="margin-top: 20px; padding: 20px; background: rgba(255,255,255,0.8); border-radius: 10px; display: inline-block;">
                             <strong>Key Concentrations:</strong><br>
-                            🔥 California: 2,303 companies (22.6%)<br>
-                            🎯 Massachusetts: 611 companies (6.0%)<br>
-                            ⭐ Texas: 600 companies (5.9%)<br>
-                            🎯 Connecticut: 435 companies (4.3%)<br>
+                            🔥 California: 2,303 companies (22.2%)<br>
+                            🎯 Massachusetts: 611 companies (5.9%)<br>
+                            ⭐ Texas: 600 companies (5.8%)<br>
+                            🌊 Florida: 463 companies (4.5%)<br>
+                            🗽 New York: 444 companies (4.3%)<br>
+                            🎯 Connecticut: 435 companies (4.2%)<br>
+                            🏭 Ohio: 423 companies (4.1%)<br>
                         </div>
                     </div>
                 </div>
